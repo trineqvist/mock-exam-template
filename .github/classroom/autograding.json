@@ -1,0 +1,54 @@
+{
+  "tests": [
+    {
+      "name": "Reaction with largest flux.",
+      "setup": "",
+      "run": "pytest assignment.py -k 'test_reaction_with_largest_flux'",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 20
+    },
+    {
+      "name": "Carbon source exchanges",
+      "setup": "",
+      "run": "pytest assignment.py -k 'test_carbon_source_exchanges'",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 20
+    },
+    {
+      "name": "Carbon source supporting anaerobic growth",
+      "setup": "",
+      "run": "pytest assignment.py -k 'test_anaerobic_carbon_sources'",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 20
+    },
+    {
+      "name": "3HP production",
+      "setup": "",
+      "run": "pytest assignment.py -k 'test_max_3hp_production'",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 20
+    },
+    {
+      "name": "3HP production & 20% growth",
+      "setup": "",
+      "run": "pytest assignment.py -k 'test_production_3hp_20perc_growth'",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 10,
+      "points": 20
+    }
+  ]
+}
