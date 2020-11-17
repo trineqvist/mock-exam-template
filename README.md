@@ -1,21 +1,23 @@
-# GSM - Assignment
+# 27410 - Mock exam
 
-In this assignment you will solve a number of tasks related to genome-scale metabolic models using both the E. coli Core and iML1515 genome-scale model.
+In this mock exam you will solve a number of tasks related to topics covered in class. It is supposed to give you an idea of how the final exam is going to be. You should be able to solve it in <3 hours (please track how much time you spent on it).
 
 In `assignment.py`:
 
-1. Simulate the model. What is the reaction with the largest flux magnitude?
-2. What are the exchange reactions in the model that can facilitate the uptake of carbon sources?
-3. What are the carbon sources that E. coli can grow on anaerobically?
-4. Add the capability to produce 3-Hydroxypropanoate (3HP) to the full genome-scale model of E. coli (iML1515). What is the maximum production rate of 3HP.
-5. What is the maximum production rate of 3HP at 20% growth (also using iML1515)?
-
+1. Based on the model, what is the theoretical maximum yield of acetate in units of mmol-acetate/mmol-glucose?
+2. Based on the model, what is the theoretical maximum yield of acetate in units of cmol-acetate/cmol-glucose?
+3. Based on the model's stoichiometry alone, how many reaction fluxes need to be measured in order to make the system determined and solvable?
+4. How much is the (optimal) growth rate reduced if fumerase (FUM in the model) is overexpressed to have a 2-fold higher flux in comparison to its flux at maximum growth rate?
+5. What genes are essential under acetate conditions but not glucose conditions?
 
 Hints:
 * `assignment.py` contains hints and recommendations both in the beginning and in the comments to each task.
 * Remember to undo modifications to the model before continuing with the next task (either make a copy of the model for each task or use the `with model: ...` statement as shown in the exercise).
-* If not mentioned otherwise, use the default conditions set in the model.
+* If not mentioned otherwise, use the default conditions set in the model in the beginning of the file.
 
+Jupyter classroom backup options:
+* Option 1: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/27410/course-materials/master) You can work on the materials by clicking on the binder badge to the left.
+* Option 2: Follow the installation instructions here.
 
 *The Rules*:
 * Every tasks needs to be solved programmatically going from the provided data to the final result, do not use manual steps in between.

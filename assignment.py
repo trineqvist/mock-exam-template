@@ -9,105 +9,118 @@ _ = 123456789  # just a wrong number, please ignore
 # or the Python Standard Library (https://docs.python.org/3/library/)
 # (if it helps) but do not import other 3rd party packages.
 
+import numpy as np
 from cobra.io import read_sbml_model
 from cobra import Reaction, Metabolite
+from cobra.util import create_stoichiometric_matrix
 
-# Read model (central metabolism model of Escherichia coli)
-model = read_sbml_model('e_coli_core.xml')
+# Read model (central metabolism model of Escherichia coli); don't change
+model = read_sbml_model("e_coli_core.xml")
+medium = model.medium
+del(medium["EX_co2_e"])
+model.medium = medium
 
 # General hints:
-# 1. Use the E. coli Core model (`model`) in its default configuration if not stated otherwise.
+# 1. Use the E. coli Core model (`model`) in its default configuration as configured above if not stated otherwise.
 # 2. Remember to undo modifications to the model before continuing with the next task
 #    (either make a copy of the model for each task or use the `with model: ...` construct as shown in the exercise).
 
 
-# 1. Simulate the model. What is the reaction with the largest flux magnitude?
+# 1. Based on the model, what is the theoretical maximum yield of acetate in units of
+#    mmol-acetate/mmol-glucose?
 # Hints:
-# Solutions/output from cobrapy often provides Pandas data frames or series, so you
-# can take full advantage of the included functionality.
+# * Needs to be a positive floating point number
 
 # Put your intermediate solution steps here if you have any ...
 
 # Replace _ with you're final calculation step or a variable that contains the final solution.
-# reaction_with_largest_flux needs to resolve to a reaction ID from the model (of type str)
-reaction_with_largest_flux = _
+# maximum_acetate_yield_mol needs to resolve to a positive floating point number
+maximum_acetate_yield_mol = _
 
 
-# 2. What are the exchange reactions in the model that can facilitate the uptake of carbon sources?
+# 2. Based on the model, what is the theoretical maximum yield of acetate in units of
+#    cmol-acetate/cmol-glucose?
 # Hints:
-# The elemental composition of metabolites is in included in the model.
-
-# Put your intermediate solution steps here if you have any ...
-
-# Replace _ with you're final calculation step or a variable that contains the final solution.
-# carbon_source_exchanges needs to a list of reaction IDs from the model (each of type str)
-carbon_source_exchanges = _
-
-
-# 3. What are the carbon sources that E. coli can grow on anaerobically?
-# Hints:
-# You can use model.slim_optimize(error_value=0.) to return a zero growth rate
-# for cases were no feasible solution can be found (which is akin to non-growth)
-
-# Put your intermediate solution steps here if you have any ...
-
-# Replace _ with you're final calculation step or a variable that contains the final solution.
-# anaerobic_carbon_sources needs to be a list of reaction IDs from the model (each of type str)
-
-anaerobic_carbon_sources = _
-
-
-# 4. Add the capability to produce 3-Hydroxypropanoate (3HP) to the full genome-scale model of E. coli (iML1515). What is the maximum production rate of 3HP.
-
-# Hints:
-# The GSM iML1515 is included here in the repository (iML1515.xml.gz); `read_sbml_model` can import compressed models (".gz").
-# There are two heterologous reaction steps that can be added to facilitate the production of 3HP from malonyl-CoA
-# 1. https://www.genome.jp/dbget-bin/www_bget?rn:R00740
-# 2. https://www.genome.jp/dbget-bin/www_bget?rn:R09289
+# * You can look up the elemental composition of a metabolite usinge `.elements` (which is a dict)
 
 # Put your intermediate solution steps here if you have any ...
 
 
 # Replace _ with you're final calculation step or a variable that contains the final solution.
-# max_3hp_production needs to resolve to a number (of type float)
+# maximum_acetate_yield_cmol needs to resolve to a positive floating point number
+maximum_acetate_yield_cmol = _
 
-max_3hp_production = _
 
-
-# 5. What is the maximum production rate of 3HP at 20% growth (also using iML1515)?
+# 3. Based on the model's stoichiometry alone, how many reaction fluxes need to be measured
+#    in order to make the system determined and solvable?
 # Hints:
-# The biomass objective already set in the model should be used to determine the maximum growth rate.
+# * You can use `create_stoichiometry matrix` (imported above) to extract a stoichiometric matrix
+#   from the model.
+# * You can use numpy (imported as `np` above) in case you need some matrix related functionality.
 
 # Put your intermediate solution steps here if you have any ...
+
+
+# Replace _ with you're final calculation step or a variable that contains the final solution.
+# degrees_of_freedom needs to be a list of reaction IDs from the model (each of type str)
+
+degrees_of_freedom = _
+
+
+# 4. How much is the (optimal) growth rate reduced if fumerase (FUM in the model) is
+#    overexpressed to have a 2-fold higher flux in comparison to its flux at maximum growth rate?
+
+# Hints:
+# * 2-fold means the reference flux of FUM (at optimal growth) multiplied by two
+# * Growth reduction should be calculated as optimal_growth - growth_fum_overexpression
+
+# Put your intermediate solution steps here if you have any ...
+
+
+# Replace _ with you're final calculation step or a variable that contains the final solution.
+# growth_reduction needs to be a floating point number that corresponds to
+# optimal_growth - growth_fum_overexpression
+
+growth_reduction = _
+
+
+# 5. What genes are essential under acetate conditions but not glucose conditions?
+# Hints:
+# * The biomass objective already set in the model should be used to determine the maximum growth rate
+# * For the glucose condition use the models as is; for the acetate condition remove
+#   glucose ('EX_glc__D_e') from the medium and set a 10 for 'EX_ac_e' (corresponds to a maximum uptake
+#   rate of 10 mmol gDW^-1 h^-1)
+# * Use `model.slim_optimize(error_value=0.)` to determine the mutant growth rate
+# * You can knock out a gene using its `.knock_out()` method
+# * Assume a gene is essential if the growth rate drops < 0.05 h^-1 upon being knocked out
+# * Remember to use `with model: ...` to revert changes like knockouts
+# * You can use Python sets (https://docs.python.org/3.8/library/stdtypes.html#set-types-set-frozenset);
+#   in particular the `difference` method should be useful, e.g.,
+#   set(['a', 'b', 'c']).difference(set['c', 'd']) ==> set(['a', 'b'])
+
+# Put your intermediate solution steps here if you have any ...
+
     
 # Replace _ with you're final calculation step or a variable that contains the final solution.
-# production_3hp_20perc_growth needs to resolve to a number (of type float)
-production_3hp_20perc_growth = _
+# essential_only_in_acetate needs to resolve to a set of gene IDs of type str ({'b2286', 'b2287', ...})
+essential_only_in_acetate = _
 
 
 #### Tests are happening in the end now ...
 ###### Don't touch
 
-def test_reaction_with_largest_flux():
-    assert type(reaction_with_largest_flux) is str, "reaction_with_largest_flux needs to be a reaction ID of type str."
-    assert hashlib.md5(reaction_with_largest_flux.encode('utf-8')).digest() == b'd0c\x0b\x93{J&\x98SQ\x9e\xecC\xdb\x8a'
+def test_maximum_acetate_yield_mol():
+    assert maximum_acetate_yield_mol == pytest.approx(2.)
+    
+def test_maximum_acetate_yield_cmol():
+    assert maximum_acetate_yield_cmol == pytest.approx(0.6666666666666666)
 
-def test_carbon_source_exchanges():
-    assert type(carbon_source_exchanges) is list, "carbon_source_exchanges needs to be a list."
-    assert type(carbon_source_exchanges[0]) is str, "carbon_source_exchanges needs to be a list of strings."
-    assert set(carbon_source_exchanges) == set(['EX_ac_e', 'EX_acald_e', 'EX_akg_e', 'EX_co2_e', 'EX_etoh_e', 'EX_for_e', 'EX_fru_e',
-                                       'EX_fum_e', 'EX_glc__D_e', 'EX_gln__L_e', 'EX_glu__L_e', 'EX_lac__D_e', 'EX_mal__L_e',
-                                       'EX_pyr_e', 'EX_succ_e'])
+def test_degrees_of_freedom():
+    assert degrees_of_freedom == 28
 
-def test_anaerobic_carbon_sources():
-    assert type(anaerobic_carbon_sources) is list, "carbon_source_exchanges needs to be a list."
-    assert type(anaerobic_carbon_sources[0]) is str, "carbon_source_exchanges needs to be a list of strings."
-    assert set(anaerobic_carbon_sources) == set(['EX_fru_e', 'EX_fum_e', 'EX_glc__D_e', 'EX_gln__L_e', 'EX_glu__L_e', 'EX_lac__D_e',
-                                             'EX_mal__L_e', 'EX_pyr_e', 'EX_succ_e'])
+def test_growth_reduction():
+    assert growth_reduction == pytest.approx(0.2244331576552907)
 
-def test_max_3hp_production():
-    assert max_3hp_production == pytest.approx(17.84)
-
-def test_production_3hp_20perc_growth():
-    assert production_3hp_20perc_growth == pytest.approx(14.3735)
+def test_essential_only_in_acetate():
+    assert essential_only_in_acetate == {'b2286', 'b2287', 'b3737', 'b2282', 'b2281', 'b2283', 'b3731', 'b2279', 'b3919', 'b3735', 'b3734', 'b3736', 'b0722', 's0001', 'b2277', 'b2288', 'b3732', 'b3738', 'b2284', 'b0721', 'b2278', 'b4025', 'b0723', 'b0724', 'b2285', 'b2280', 'b4015', 'b3733', 'b2276'}
 ###### this
