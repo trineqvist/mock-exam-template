@@ -16,8 +16,8 @@ Hints:
 * If not mentioned otherwise, use the default conditions set in the model in the beginning of the file.
 
 Jupyter classroom backup options:
-* Option 1: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/27410/course-materials/master) You can work on the materials by clicking on the binder badge to the left.
-* Option 2: Follow the installation instructions here.
+* Option 1: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/27410/course-materials/master?urlpath=lab) You can work on the materials by clicking on the binder badge to the left. WARNING no work is saved on the Binder Jupyterhub so back up your work regularly with git
+* Option 2: Follow the installation instructions [here](https://github.com/27410/course-materials/blob/master/INSTALLATION.md) to install git, Python and cobrapy on your local computer.
 
 *The Rules*:
 * Every tasks needs to be solved programmatically going from the provided data to the final result, do not use manual steps in between.
