@@ -62,7 +62,7 @@ maximum_acetate_yield_cmol = _
 
 
 # Replace _ with you're final calculation step or a variable that contains the final solution.
-# degrees_of_freedom needs to be a list of reaction IDs from the model (each of type str)
+# degrees_of_freedom needs to be an integer number.
 
 degrees_of_freedom = _
 
