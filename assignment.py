@@ -67,7 +67,7 @@ maximum_acetate_yield_cmol = _
 degrees_of_freedom = _
 
 
-# 4. How much is the (optimal) growth rate reduced if fumerase (FUM in the model) is
+# 4. How much is the (optimal) growth rate reduced if fumarase (FUM in the model) is
 #    overexpressed to have a 2-fold higher flux in comparison to its flux at maximum growth rate?
 
 # Hints:
